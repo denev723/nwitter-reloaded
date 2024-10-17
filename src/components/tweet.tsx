@@ -104,7 +104,7 @@ export default function Tweet({ username, photo, tweet, userId, id }: ITweet) {
       </Wrapper>
       {edit ? (
         <EditForm>
-          <EditTextarea />
+          <EditTextarea value={tweet} />
           <BtnWrap>
             <DeletePhotoBtn>Delete Photo</DeletePhotoBtn>
             <UpdatePhotoBtn>Update Photo</UpdatePhotoBtn>
