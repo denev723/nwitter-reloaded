@@ -4,7 +4,6 @@ import { auth, database, storage } from "../firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { useState } from "react";
-import UpdateTweetForm from "./update-tweet-form";
 
 const Wrapper = styled.div`
   display: grid;
@@ -44,21 +43,9 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
-const EditButton = styled.button`
-  margin-left: 5px;
-  background-color: #1d9bf0;
-  color: white;
-  font-weight: 600;
-  border: 0;
-  font-size: 12px;
-  padding: 5px 10px;
-  text-transform: uppercase;
-  border-radius: 5px;
-  cursor: pointer;
-`;
-
 export default function Tweet({ username, photo, tweet, userId, id }: ITweet) {
   const user = auth.currentUser;
+
   const [edit, setEdit] = useState(false);
 
   const onDelete = async () => {
@@ -80,38 +67,16 @@ export default function Tweet({ username, photo, tweet, userId, id }: ITweet) {
     }
   };
 
-  const onSetEdit = () => {
-    if (edit) {
-      setEdit(false);
-    } else {
-      setEdit(true);
-    }
-  };
-
   return (
-    <>
-      <Wrapper>
-        <Column>
-          <Username>{username}</Username>
-          <Payload>{tweet}</Payload>
-          {user?.uid === userId ? (
-            <>
-              <DeleteButton onClick={onDelete}>Delete</DeleteButton>
-              <EditButton onClick={onSetEdit}>Edit</EditButton>
-            </>
-          ) : null}
-        </Column>
-        <Column>{photo ? <Photo src={photo} /> : null}</Column>
-      </Wrapper>
-      {edit ? (
-        <UpdateTweetForm
-          id={id}
-          photo={photo}
-          tweet={tweet}
-          onSetEdit={onSetEdit}
-          setEdit={setEdit}
-        />
-      ) : null}
-    </>
+    <Wrapper>
+      <Column>
+        <Username>{username}</Username>
+        <Payload>{tweet}</Payload>
+        {user?.uid === userId ? (
+          <DeleteButton onClick={onDelete}>Delete</DeleteButton>
+        ) : null}
+      </Column>
+      <Column>{photo ? <Photo src={photo} /> : null}</Column>
+    </Wrapper>
   );
 }

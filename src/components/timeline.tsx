@@ -12,12 +12,12 @@ import Tweet from "./tweet";
 import { Unsubscribe } from "firebase/auth";
 
 export interface ITweet {
-  id: string;
-  photo: string;
-  tweet: string;
-  userId: string;
-  username: string;
-  createdAt: number;
+  id?: string;
+  photo?: string;
+  tweet?: string;
+  userId?: string;
+  username?: string;
+  createdAt?: number;
 }
 
 const Wrapper = styled.div`
